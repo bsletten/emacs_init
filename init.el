@@ -1,3 +1,5 @@
+;; Brian Sletten's init.el file across machines.
+
 ;; Common
 
 (setq make-backup-files nil)
