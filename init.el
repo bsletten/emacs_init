@@ -25,6 +25,10 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
+;; Command Logging
+
+;; (use-package command-log-mode)
+
 
 ;; Org-mode
 
@@ -41,9 +45,11 @@
  ;; If there is more than one, they won't work right.
 
  '(org-agenda-files
-   '("~/Dropbox/org-mode-files/misc.org"
+   '("~/Dropbox/org-mode-files/emacs.org"
+     "~/Dropbox/org-mode-files/misc.org"
      "~/Dropbox/org-mode-files/attending.org"
      "~/Dropbox/org-mode-files/projects.org"
+     "~/Dropbox/org-mode-files/syssetup.org"
      "~/Dropbox/org-mode-files/pinboard-bookmarks.org"))
  
  '(package-selected-packages
