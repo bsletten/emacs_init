@@ -5,13 +5,26 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
+(setq inhibit-startup-message t)
+(setq visible-bell t)
+
+;; Themes
+
+;; (load-theme 'tango-dark)
 
 ;; Package Management
 
 (require 'package)
 (add-to-list 'package-archives
- '("melpa" . "https://melpa.org/packages/")
+   '("melpa" . "https://melpa.org/packages/")
  t)
+(add-to-list 'package-archives
+   '("org" . "https://orgmode.org/elpa/")
+ t)
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
 
 ;; Org-mode
 
