@@ -8,10 +8,6 @@
 (setq inhibit-startup-message t)
 (setq visible-bell t)
 
-;; Themes
-
-;; (load-theme 'tango-dark)
-
 ;; Package Management
 
 (require 'package)
@@ -24,6 +20,28 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; Line-numbering
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+(dolist (mode `(org-mode-hook
+		term-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; Visual Elements
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; Themes
+
+;; (load-theme 'tango-dark)
 
 ;; Command Logging
 
