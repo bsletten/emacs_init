@@ -65,6 +65,7 @@
  '(org-agenda-files
    '("~/Dropbox/org-mode-files/emacs.org"
      "~/Dropbox/org-mode-files/misc.org"
+     "~/Dropbox/org-mode-files/elsevier.org"     
      "~/Dropbox/org-mode-files/attending.org"
      "~/Dropbox/org-mode-files/projects.org"
      "~/Dropbox/org-mode-files/syssetup.org"
@@ -72,3 +73,10 @@
  
  '(package-selected-packages
    '(org)))
+
+;; RSS-Feeds
+
+(global-set-key (kbd "C-x w") 'elfeed)
+
+(setq elfeed-feeds
+      '("https://huyenchip.com/feed.xml" blog ai ml))
