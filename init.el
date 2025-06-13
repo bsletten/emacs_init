@@ -7,6 +7,7 @@
 (setq create-lockfiles nil)
 (setq inhibit-startup-message t)
 (setq visible-bell t)
+(setq-default indent-tabs-mode nil)
 
 ;; Package Management
 
@@ -76,7 +77,13 @@
 
 ;; RSS-Feeds
 
-(global-set-key (kbd "C-x w") 'elfeed)
+; (global-set-key (kbd "C-x w") 'elfeed)
 
 (setq elfeed-feeds
-      '("https://huyenchip.com/feed.xml" blog ai ml))
+      '(("https://huyenchip.com/feed.xml" blog ai ml)
+	("https://lilianweng.github.io/index.xml" blog ai ml)
+        ("https://sachachua.com/blog/feed/" blog emacs)
+	("https://nicholas.carlini.com/writing/feed.xml" ml ai security threats)
+        ("https://realpython.com/atom.xml" blog python)
+       )
+)
