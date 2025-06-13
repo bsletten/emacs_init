@@ -35,6 +35,10 @@
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; Remap buffer list to ibuffer
+
+(global-set-key [remap list-buffers] 'ibuffer)
+
 ;; Visual Elements
 
 (use-package rainbow-delimiters
@@ -48,6 +52,9 @@
 
 ;; (use-package command-log-mode)
 
+;; Turn on ability to switch windows with SHIFT and arrow keys
+
+(windmove-default-keybindings)
 
 ;; Org-mode
 
@@ -74,6 +81,14 @@
  
  '(package-selected-packages
    '(org)))
+
+;; Zotero
+
+(require 'zotero)
+(require 'zotero-browser)
+
+;; Quarto
+(require 'quarto-mode)
 
 ;; RSS-Feeds
 
