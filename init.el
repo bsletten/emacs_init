@@ -82,6 +82,16 @@
  '(package-selected-packages
    '(org)))
 
+;; Babel
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
+(setq org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t)
+
 ;; Zotero
 
 (require 'zotero)
