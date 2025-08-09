@@ -9,6 +9,12 @@
 (setq visible-bell t)
 (setq-default indent-tabs-mode nil)
 
+;; Scrim
+
+(setq server-use-tcp t)
+(server-start)
+(require 'org-protocol)
+
 ;; Package Management
 
 (require 'package)
@@ -38,6 +44,10 @@
 ;; Remap buffer list to ibuffer
 
 (global-set-key [remap list-buffers] 'ibuffer)
+
+;; Remap other window to M-o for convenience.
+
+(global-set-key (kbd "M-o") 'other-window)
 
 ;; Visual Elements
 
@@ -82,11 +92,34 @@
  '(package-selected-packages
    '(org)))
 
+(setq org-directory "~/Dropbox/org-mode-files")
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-capture-templates
+        '(("capture"
+           "Org Protocol Capture"
+           entry
+           (file "") ; an empty string defaults to org-default-notes-file
+           (function (lambda ()
+                       (string-join
+                        '("* %:description"
+                          "%:annotation"
+                          "%i"
+                          "%?")
+                        "\n")))
+           :empty-lines 1)))
+
 ;; Babel
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((python . t)))
+ '((shell      . t)
+   (python     . t)
+   (js         . t)
+   (emacs-lisp . t)
+   (ruby       . t)
+   (clojure    . t)
+   (css        . t)
+   (dot        . t)))
 
 (setq org-confirm-babel-evaluate nil
       org-src-fontify-natively t
