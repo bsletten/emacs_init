@@ -8,7 +8,8 @@
 (setq inhibit-startup-message t)
 (setq visible-bell t)
 (setq-default indent-tabs-mode nil)
-
+(global-set-key (kbd "M-S-z") 'zap-up-to-char)
+                
 ;; Scrim
 
 (setq server-use-tcp t)
