@@ -73,6 +73,11 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "M-n") #'org-next-link)
+  (define-key org-mode-map (kbd "M-p") #'org-previous-link))
+
 (setq org-log-done t)
 
 (custom-set-variables
@@ -146,3 +151,18 @@
         ("https://realpython.com/atom.xml" blog python)
        )
 )
+
+(defun sk/elfeed-db-remove-entry (id)
+  "Removes the entry for ID"
+  (avl-tree-delete elfeed-db-index id)
+  (remhash id elfeed-db-entries))
+
+(defun sk/elfeed-search-remove-selected ()
+  "Remove selected entries from database"
+  (interactive)
+  (let* ((entries (elfeed-search-selected))
+	 (count (length entries)))
+    (when (y-or-n-p (format "Delete %d entires?" count))
+      (cl-loop for entry in entries
+	       do (sk/elfeed-db-remove-entry (elfeed-entry-id entry)))))
+  (elfeed-search-update--force))
