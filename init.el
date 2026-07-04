@@ -134,6 +134,8 @@
 
 (require 'org)
 (load "~/Dropbox/org-mode-files/org-setup.el")
+(add-hook 'org-mode-hook #'auto-revert-mode)
+
 ;;(global-set-key (kbd "C-c l") 'org-store-link)
 ;;(global-set-key (kbd "C-c a") 'org-agenda)
 ;;(global-set-key (kbd "C-c c") 'org-capture)
