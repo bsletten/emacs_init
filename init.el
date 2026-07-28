@@ -272,11 +272,11 @@
 
 ;; Zotero
 
-(require 'zotero)
-(require 'zotero-browser)
+;;(require 'zotero)
+;;(require 'zotero-browser)
 
 ;; Quarto
-(require 'quarto-mode)
+;;(require 'quarto-mode)
 
 ;; Rest Client
 
@@ -286,17 +286,20 @@
 
 ;; Mastodon
 
-(use-package mastodon
-  :ensure t
-  :config
-  (setq mastodon-instance-url "https://mastodon.social"
-        mastodon-active-user "bsletten"))
+;;(use-package mastodon
+;;  :ensure t
+;;  :config
+;;  (setq mastodon-instance-url "https://mastodon.social"
+;;        mastodon-active-user "bsletten"))
 
 ;; RSS-Feeds
 
-; (global-set-key (kbd "C-x w") 'elfeed)
+                                        ; (global-set-key (kbd "C-x w") 'elfeed)
 
-(setq elfeed-feeds
+(use-package elfeed
+  :ensure t
+  :config
+    (setq elfeed-feeds
       '(("https://huyenchip.com/feed.xml" blog ai ml)
 	("https://lilianweng.github.io/index.xml" blog ai ml)
         ("https://sachachua.com/blog/feed/" blog emacs)
@@ -329,8 +332,10 @@
         ("https://llm-d.ai/blog/atom.xml" blog ai llm)
         ("https://simonwillison.net/atom/everything/" blog ai)
         ("https://hamel.dev/index.xml" blog ai)
-       )
-)
+        )
+      )
+    )
+
 
 (defun sk/elfeed-db-remove-entry (id)
   "Removes the entry for ID"
