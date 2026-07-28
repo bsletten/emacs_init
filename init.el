@@ -116,9 +116,9 @@
               (")" . dired-git-info-mode)))
 
 ;; Show git status in dired
-(use-package diff-hl
-  :ensure t
-  :hook (dired-mode . diff-hl-dired-mode))
+;;(use-package diff-hl
+;;  :ensure t
+;;  :hook (dired-mode . diff-hl-dired-mode))
 
 ;; Find files by name
 (use-package find-dired
@@ -328,6 +328,7 @@
         ("https://vllm.ai/blog/rss.xml" blog ai llm)
         ("https://llm-d.ai/blog/atom.xml" blog ai llm)
         ("https://simonwillison.net/atom/everything/" blog ai)
+        ("https://hamel.dev/index.xml" blog ai)
        )
 )
 
@@ -345,3 +346,20 @@
       (cl-loop for entry in entries
 	       do (sk/elfeed-db-remove-entry (elfeed-entry-id entry)))))
   (elfeed-search-update--force))
+
+;; Ikigai Integration
+
+(load "~/git-personal/ikigai-emacs/ikigai.el")
+(require 'ikigai)
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c z") #'ikigai-org-schedule-zoom))
+
+(global-set-key (kbd "C-c i e") #'ikigai-eval-dwim)
+
+
+(setq ikigai-mounts
+      '((:prefix "urn:personal:" :alias "urn:cal:"
+         :target "quic://localhost:4444"
+         :cert-dir "~/.config/ikigai/quic/calendar")))
+
