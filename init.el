@@ -14,6 +14,7 @@
 
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "/opt/homebrew/bin") ; Apple Silicon
+(add-to-list 'exec-path (expand-file-name "~/.cargo/bin")) ; rust: ikigai, cargo
 (setenv "PATH" (string-join exec-path path-separator))
 
 ;; Scrim
@@ -363,8 +364,8 @@
 (global-set-key (kbd "C-c i e") #'ikigai-eval-dwim)
 
 
-(setq ikigai-mounts
-      '((:prefix "urn:personal:" :alias "urn:cal:"
-         :target "quic://localhost:4444"
-         :cert-dir "~/.config/ikigai/quic/calendar")))
+;;(setq ikigai-mounts
+;;      '((:prefix "urn:personal:" :alias "urn:cal:"
+;;         :target "quic://localhost:4444"
+;;         :cert-dir "~/.config/ikigai/quic/calendar")))
 
