@@ -36,9 +36,21 @@
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(setq package-install-upgrade-built-in t)
 (package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+
+(let ((contents (expand-file-name "archives/melpa/archive-contents" package-user-dir)))
+  (when (or (not (file-exists-p contents))
+            (> (float-time (time-since (file-attribute-modification-time
+                                        (file-attributes contents))))
+               (* 7 24 60 60)))
+    (package-refresh-contents)))
+
+
+;;(unless package-archive-contents
+;;  (package-refresh-contents))
+
 
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -244,32 +256,6 @@
 (with-eval-after-load 'tramp
   (with-eval-after-load 'compile
     (remove-hook 'compilation-mode-hook #'tramp-compile-disable-ssh-controlmaster-options)))
-
-;; Configure org-babel integration
-(defun ellama-org-babel-execute ()
-  "Execute ellama code blocks in org-mode."
-  (interactive)
-  (let ((query (org-element-property :value (org-element-at-point))))
-    (ellama-ask-about query)))
-
-;; Add keybinding for org-mode
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c C-e") #'ellama-org-babel-execute)))
-
-(defun my-ellama-code-review ()
-  "Review selected code for improvements."
-  (interactive)
-  (ellama-ask-about
-   (format "Review this code for best practices, bugs, and improvements:\n\n%s"
-           (buffer-substring-no-properties (region-beginning) (region-end)))))
-
-;; Generate documentation automatically
-(defun my-ellama-document-function ()
-  "Generate documentation for function at point."
-  (interactive)
-  (ellama-code-add
-   "Add comprehensive docstring explaining parameters, return value, and side effects"))
 
 ;; Zotero
 
