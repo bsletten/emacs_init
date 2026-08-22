@@ -319,6 +319,7 @@
         ("https://llm-d.ai/blog/atom.xml" blog ai llm)
         ("https://simonwillison.net/atom/everything/" blog ai)
         ("https://hamel.dev/index.xml" blog ai)
+        ("https://jeremymorrell.dev/blog/rss.xml" blog)
         )
       )
     )
@@ -349,7 +350,7 @@
 
 (global-set-key (kbd "C-c i e") #'ikigai-eval-dwim)
 
-
+;;(setq ikigai-connect "~/.ikigai/dev.sock") 
 ;;(setq ikigai-mounts
 ;;      '((:prefix "urn:personal:" :alias "urn:cal:"
 ;;         :target "quic://localhost:4444"
