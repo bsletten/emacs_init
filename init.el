@@ -155,7 +155,12 @@
   :ensure t)
 
 ;; Org-mode
+;; Install from ELPA explicitly. `package-installed-p' counts the built-in Org
+;; as installed, so :ensure (and use-package-always-ensure) are satisfied by
+;; 9.7.11 and a fresh machine would silently run the stale built-in.
 
+(unless (package-installed-p 'org '(9 8))
+  (package-install 'org))
 (require 'org)
 (require 'org-protocol)               ; must follow `require org' (see Scrim above)
 (load "~/Dropbox/org-mode-files/org-setup.el")
