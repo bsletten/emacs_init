@@ -43,7 +43,6 @@
                          ("melpa" . "https://melpa.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
-(setq package-install-upgrade-built-in t)
 (package-initialize)
 
 (let ((contents (expand-file-name "archives/melpa/archive-contents" package-user-dir)))
@@ -52,6 +51,19 @@
                                         (file-attributes contents))))
                (* 7 24 60 60)))
     (package-refresh-contents)))
+
+;; The only three packages that may replace a built-in, done explicitly.
+;; magit needs transient >= 0.13 and compat >= 31.0; Emacs 30.2 ships 0.7.2.2
+;; and 30.2.9999. Org's built-in is 9.7.11.
+;;
+;; Scoped rather than global: as a global setting this also makes `list-packages'
+;; U mark EVERY built-in as upgradable, which is how erc/eglot/tramp/idlwave/
+;; verilog-mode and ten others ended up shadowed by ELPA copies nothing declares.
+;; `package-install' honors the same variable, so these must run inside the let.
+(let ((package-install-upgrade-built-in t))
+  (unless (package-installed-p 'transient '(0 13)) (package-install 'transient))
+  (unless (package-installed-p 'compat    '(31 0)) (package-install 'compat))
+  (unless (package-installed-p 'org       '(9 8))  (package-install 'org)))
 
 
 ;;(unless package-archive-contents
@@ -158,12 +170,10 @@
   :ensure t)
 
 ;; Org-mode
-;; Install from ELPA explicitly. `package-installed-p' counts the built-in Org
-;; as installed, so :ensure (and use-package-always-ensure) are satisfied by
-;; 9.7.11 and a fresh machine would silently run the stale built-in.
+;; Org itself is installed up in the Package Management section: it must come
+;; from ELPA, and `package-installed-p' counts the built-in as installed, so
+;; :ensure alone would leave a fresh machine on 9.7.11.
 
-(unless (package-installed-p 'org '(9 8))
-  (package-install 'org))
 (require 'org)
 (require 'org-protocol)               ; must follow `require org' (see Scrim above)
 (load "~/Dropbox/org-mode-files/org-setup.el")
@@ -338,6 +348,7 @@
         ("https://simonwillison.net/atom/everything/" blog ai)
         ("https://hamel.dev/index.xml" blog ai)
         ("https://jeremymorrell.dev/blog/rss.xml" blog)
+        ("https://randyridenour.net/posts/rss.xml" blog emacs)
         )
       )
     )
