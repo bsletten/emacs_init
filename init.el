@@ -97,10 +97,13 @@
 (global-set-key (kbd "M-o") 'other-window)
 
 ;; Which-key: Discover keybindings.
-;; :ensure nil -- use the built-in (3.6.0), NOT the MELPA build. MELPA's
-;; which-key is frozen at 20240620.2145, but package.el reads that date as a
-;; version and ranks it above 3.6.0, so the ELPA copy would shadow the
-;; maintained built-in forever.
+;; Built-in only from Emacs 30.1. Where a built-in exists, :ensure nil makes it
+;; win: MELPA's which-key is frozen at 20240620.2145, and package.el reads that
+;; date as a version ranking above 3.6.0, so an ELPA copy would shadow the
+;; maintained built-in forever. On older Emacs (bug runs 29.1) there is no
+;; built-in, so fall back to installing it.
+(unless (locate-library "which-key")
+  (package-install 'which-key))
 (use-package which-key
   :ensure nil
   :init (which-key-mode)
