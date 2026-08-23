@@ -174,8 +174,6 @@
   (define-key org-mode-map (kbd "M-n") #'org-next-link)
   (define-key org-mode-map (kbd "M-p") #'org-previous-link))
 
-(setq org-log-done t)
-
 (setq org-link-abbrev-alist
       '(("bugzilla"        . "https://10.1.2.9/bugzilla/show_bug.cgi?id=")
         ("Nu Html Checker" . "https://validator.w3.org/nu/?doc=%h")
