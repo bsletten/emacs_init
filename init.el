@@ -21,7 +21,9 @@
 
 (setq server-use-tcp t)
 (server-start)
-(require 'org-protocol)
+;; org-protocol is loaded down in the Org-mode section, NOT here: it pulls in
+;; Org, and anything before `package-initialize' below gets the built-in Org
+;; rather than the ELPA one.
 
 ;; Package Management
 
@@ -146,6 +148,7 @@
 ;; Org-mode
 
 (require 'org)
+(require 'org-protocol)               ; must follow `require org' (see Scrim above)
 (load "~/Dropbox/org-mode-files/org-setup.el")
 (add-hook 'org-mode-hook #'auto-revert-mode)
 
