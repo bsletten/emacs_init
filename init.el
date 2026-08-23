@@ -20,7 +20,11 @@
 ;; Scrim
 
 (setq server-use-tcp t)
-(server-start)
+;; Guarded: server-start is unconditional otherwise, so a second Emacs would
+;; overwrite ~/.emacs.d/server/server and orphan the first instance's clients.
+(require 'server)                     ; server-running-p is not autoloaded
+(unless (server-running-p)
+  (server-start))
 ;; org-protocol is loaded down in the Org-mode section, NOT here: it pulls in
 ;; Org, and anything before `package-initialize' below gets the built-in Org
 ;; rather than the ELPA one.
