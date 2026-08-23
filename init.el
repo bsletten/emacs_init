@@ -54,6 +54,11 @@
 ;;  (package-refresh-contents))
 
 
+;; Keep Custom out of init.el: with `custom-file' unset, `custom-set-variables'
+;; is written into ~/.emacs.d/init.el, which this repo does not track.
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file t)
+
 (require 'use-package)
 (setq use-package-always-ensure t)
 
