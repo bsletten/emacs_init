@@ -105,7 +105,6 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Themes
-'(custom-enabled-themes '(wheatgrass))
 
 (load-theme 'wheatgrass)
 
