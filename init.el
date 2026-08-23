@@ -80,9 +80,13 @@
 
 (global-set-key (kbd "M-o") 'other-window)
 
-;; Which-key: Discover keybindings
+;; Which-key: Discover keybindings.
+;; :ensure nil -- use the built-in (3.6.0), NOT the MELPA build. MELPA's
+;; which-key is frozen at 20240620.2145, but package.el reads that date as a
+;; version and ranks it above 3.6.0, so the ELPA copy would shadow the
+;; maintained built-in forever.
 (use-package which-key
-  :ensure t
+  :ensure nil
   :init (which-key-mode)
   :config
   (setq which-key-idle-delay 0.3))
