@@ -20,11 +20,15 @@
 ;; Scrim
 
 (setq server-use-tcp t)
-;; Guarded: server-start is unconditional otherwise, so a second Emacs would
-;; overwrite ~/.emacs.d/server/server and orphan the first instance's clients.
+;; I only ever run one GUI Emacs, so instead of guarding server-start we
+;; forcibly reclaim the channel on every startup. This recovers from a
+;; stray `emacs --bg-daemon` (e.g. one auto-spawned by `emacsclient -a ''`
+;; for Captee/Scrim) that overwrote ~/.emacs.d/server/server and stole the
+;; TCP endpoint. The orphaned daemon keeps running but is harmless;
+;; emacsclient now follows the new server file back to this Emacs.
 (require 'server)                     ; server-running-p is not autoloaded
-(unless (server-running-p)
-  (server-start))
+(ignore-errors (server-force-delete)) ; drop any stale/ghost server file
+(server-start)
 ;; org-protocol is loaded down in the Org-mode section, NOT here: it pulls in
 ;; Org, and anything before `package-initialize' below gets the built-in Org
 ;; rather than the ELPA one.
