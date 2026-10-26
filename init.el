@@ -292,6 +292,15 @@
   (with-eval-after-load 'compile
     (remove-hook 'compilation-mode-hook #'tramp-compile-disable-ssh-controlmaster-options)))
 
+;; Markdown
+
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+         ("C-c C-e" . markdown-do)))
+
 ;; Zotero
 
 ;;(require 'zotero)
@@ -356,6 +365,7 @@
         ("https://hamel.dev/index.xml" blog ai)
         ("https://jeremymorrell.dev/blog/rss.xml" blog)
         ("https://randyridenour.net/posts/rss.xml" blog emacs)
+        ("https://www.w3.org/groups/cg/webassembly/feed/" wasm w3c)
         )
       )
     )
